@@ -1,13 +1,13 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"atclouddnatraining00/zhoui5/controller/Customer.controller"
+	"atclouddnatraining00/zhoui5/controller/Main.controller"
 ], function (Controller) {
 	"use strict";
 
-	QUnit.module("Customer Controller");
+	QUnit.module("Main Controller");
 
-	QUnit.test("I should test the Customer controller", function (assert) {
+	QUnit.test("I should test the Main controller", function (assert) {
 		var oAppController = new Controller();
 		oAppController.onInit();
 		assert.ok(oAppController);

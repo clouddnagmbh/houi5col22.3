@@ -33,7 +33,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.118.0",
       "libs": {
@@ -78,20 +78,20 @@
       },
       "routes": [
         {
-          "name": "RouteCustomer",
+          "name": "RouteMain",
           "pattern": ":?query:",
           "target": [
-            "TargetCustomer"
+            "TargetMain"
           ]
         }
       ],
       "targets": {
-        "TargetCustomer": {
+        "TargetMain": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "Customer",
-          "viewName": "Customer"
+          "viewId": "Main",
+          "viewName": "Main"
         }
       }
     },
