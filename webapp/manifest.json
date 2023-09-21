@@ -57,6 +57,10 @@
         "settings": {
           "bundleName": "at.clouddna.training00.zhoui5.i18n.i18n"
         }
+      },
+      "": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "data/customers.json"
       }
     },
     "resources": {
