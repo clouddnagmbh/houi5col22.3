@@ -36,9 +36,12 @@
                     <Column id="main_column_website" minScreenWidth="Desktop">
                         <Text id="main_text_website" text="{i18n>app.website}"/>
                     </Column>
+                    <Column id="main_column_search_dialog">
+                        <Button press="onOpenDialog" type="Transparent" icon="sap-icon://search"/>
+                    </Column>
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem type="Navigation" press="onListItemClicked">
                         <cells>
                             <ObjectIdentifier title="{Customerid}"/>
                             <Text text="{Firstname}"/>

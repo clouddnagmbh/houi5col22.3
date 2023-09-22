@@ -87,6 +87,13 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "RouteCustomer",
+          "pattern": "customer/{path}",
+          "target": [
+            "TargetCustomer"
+          ]
         }
       ],
       "targets": {
@@ -96,6 +103,13 @@
           "clearControlAggregation": false,
           "viewId": "Main",
           "viewName": "Main"
+        },
+        "TargetCustomer": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Customer",
+          "viewName": "Customer"
         }
       }
     },
