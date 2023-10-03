@@ -6,54 +6,30 @@
     xmlns="sap.m">
     <u:ObjectPageLayout id="ObjectPageLayout"
         showTitleInHeaderContent="true"
+        showFooter="{= ${editModel>/editmode}}"
         upperCaseAnchorBar="false">
         <u:headerTitle>
             <u:ObjectPageDynamicHeaderTitle>
                 <u:expandedHeading>
                     <HBox>
-                        <Button id="customer_back_button" type="Back" press="onNavBack" />
-                        <Title text="Kundendetails" />
+                        <Title text="{i18n>customerDetails}" />
+                        <ToolbarSpacer />
                     </HBox>
                 </u:expandedHeading>
+                <u:actions>
+                    <Button id="app_edit_button" text="{i18n>edit}" type="Emphasized" icon="sap-icon://edit" 
+                    press="onEditPressed" visible="{= !${editModel>/editmode}}" />
+				</u:actions>
             </u:ObjectPageDynamicHeaderTitle>
         </u:headerTitle>
-        <u:sections>
-            <u:ObjectPageSection>
-                <u:subSections>
-                    <u:ObjectPageSubSection>
-                        <u:blocks>
-                            <f:SimpleForm title="{Firstname} {Lastname}">
-                                <Label text="{i18n>app.customerid}" labelFor="customerid" />
-                                <Text id="customerid" text="{Customerid}" />
-
-                                <Label text="{i18n>app.firstname}" labelFor="firstname" />
-                                <Text id="firstname" text="{Firstname}" />
-
-                                <Label text="{i18n>app.lastname}" labelFor="lastname" />
-                                <Text id="lastname" text="{Lastname}" />
-
-                                <Label text="{i18n>app.title}" labelFor="title" />
-                                <Text id="title" text="{Title}" />
-
-                                <Label text="{i18n>app.gender}" labelFor="gender" />
-                                <Text id="gender" text="{path: 'Gender', formatter: '.genderFormatter'}" />
-
-                                <Label text="{i18n>app.email}" labelFor="email" />
-                                <Text id="email" text="{Email}" />
-
-                                <Label text="{i18n>app.phone}" labelFor="phone" />
-                                <Text id="phone" text="{Phone}" />
-
-                                <Label text="{i18n>app.website}" labelFor="website" />
-                                <Text id="website" text="{Website}" />
-
-                                <Label text="{i18n>app.birthdate}" labelFor="birthdate" />
-                                <Text id="birthdate" text="{Birthdate}" />
-                            </f:SimpleForm>
-                        </u:blocks>
-                    </u:ObjectPageSubSection>
-                </u:subSections>
-            </u:ObjectPageSection>
-        </u:sections>
+        <u:footer>
+            <Toolbar id="app_bar_footer">
+                <ToolbarSpacer />
+                <Button id="app_save_button" text="{i18n>save}" type="Accept" icon="sap-icon://save" 
+                press="onSavePressed" visible="{= ${editModel>/editmode}}" />
+                <Button id="app_cancel_button" text="{i18n>cancel}" type="Reject" icon="sap-icon://cancel" 
+                press="onCancelPressed" visible="{= ${editModel>/editmode}}" />
+            </Toolbar>
+        </u:footer>
     </u:ObjectPageLayout>
 </mvc:View>

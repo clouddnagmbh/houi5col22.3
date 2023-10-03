@@ -14,6 +14,17 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.11.0",
       "toolsId": "ad03c460-ef25-458f-844f-d7099c9e7e2c"
+    },
+    "dataSources": {
+      "Z_CUSTOMER_UI_V2": {
+        "uri": "/sap/opu/odata/sap/Z_CUSTOMER_UI_V2/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml",
+          "useBatch": true
+        }
+      }
     }
   },
   "sap.ui": {
@@ -59,8 +70,17 @@
         }
       },
       "": {
+        "dataSource": "Z_CUSTOMER_UI_V2",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false
+        }
+      },
+      "genderModel": {
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "data/customers.json"
+        "uri": "data/genders.json"
       }
     },
     "resources": {
@@ -82,10 +102,10 @@
       },
       "routes": [
         {
-          "name": "RouteMain",
+          "name": "Main",
           "pattern": ":?query:",
           "target": [
-            "TargetMain"
+            "Main"
           ]
         },
         {
@@ -94,10 +114,17 @@
           "target": [
             "TargetCustomer"
           ]
-        }
+        },
+        {
+          "name": "CreateCustomer",
+          "pattern": "createcustomer",
+          "target": [
+              "TargetCustomer"
+          ]
+        }      
       ],
       "targets": {
-        "TargetMain": {
+        "Main": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,

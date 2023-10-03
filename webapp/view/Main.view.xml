@@ -7,7 +7,16 @@
             <Title text="{i18n>title}" />
         </s:titleHeading>
         <s:content>
-            <Table items="{/customers}" id="main_table" headerText="{i18n>main.table.title}">
+            <Table items="{/Z_P_CUSTOMER}" id="main_table" headerText="{i18n>main.table.title}" 
+            mode="Delete" delete="onDeletePressed">
+                <headerToolbar>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <Title id="_IDGenTitle1" text="{i18n>main.table.title}"/>
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+                        <Button id="main_button_create" icon="sap-icon://add" type="Accept" text="{i18n>create}" press="onCreatePressed"/>
+                        <!-- <Button press="onOpenDialog" type="Transparent" icon="sap-icon://search"/> -->
+                    </OverflowToolbar>
+                </headerToolbar>
                 <columns>
                     <Column id="idMainColumn">
                         <Text id="main_text_customerid" text="{i18n>app.customerid}"/>
@@ -36,9 +45,6 @@
                     <Column id="main_column_website" minScreenWidth="Desktop">
                         <Text id="main_text_website" text="{i18n>app.website}"/>
                     </Column>
-                    <Column id="main_column_search_dialog">
-                        <Button press="onOpenDialog" type="Transparent" icon="sap-icon://search"/>
-                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation" press="onListItemClicked">
@@ -47,8 +53,8 @@
                             <Text text="{Firstname}"/>
                             <Text text="{Lastname}"/>
                             <Text text="{Title}"/>
-                            <Text text="{path:'Gender', formatter: '.genderFormatter'}"/>
-                            <Text text="{Birthdate}"/>
+                            <Text text="{= ${Gender} === '1' ? ${i18n>female} : ${i18n>male} }"/>
+                            <Text text="{path: 'Birthdate', formatter: '.dateFormatter'}"/>
                             <Text text="{Email}"/>
                             <Text text="{Phone}"/>
                             <Link text="{Website}" href="https://{Website}" target="_blank"/>

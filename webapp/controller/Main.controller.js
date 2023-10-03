@@ -3,17 +3,47 @@ sap.ui.define([
     'sap/ui/core/syncStyleClass',
     'sap/ui/core/Fragment',
     "sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
+	"sap/ui/model/FilterOperator",
+    "sap/m/MessageBox"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, syncStyleClass, Fragment, Filter, FilterOperator) {
+    function (Controller, syncStyleClass, Fragment, Filter, FilterOperator, MessageBox) {
         "use strict";
 
         return Controller.extend("at.clouddna.training00.zhoui5.controller.Main", {
             onInit: function () {
                 
+            },
+            
+            onDeletePressed: function(oEvent){
+                this._delete(oEvent.getParameters().listItem);
+            },
+            
+            _delete: function(oListItem){
+                let oModel = this.getView().getModel();
+                let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+                let sPath = oListItem.getBindingContext().getPath();
+            
+                MessageBox.warning(oResourceBundle.getText("sureToDeleteQuestion"), {
+                    title: oResourceBundle.getText("sureToDeleteTitle"),
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
+                    onClose: function(oAction){
+                        if(MessageBox.Action.YES === oAction){
+                            oModel.remove(sPath, {
+                                success: (oData, response) => {
+                                    MessageBox.success(oResourceBundle.getText("dialog.delete.success"));
+                                    oModel.refresh(true);
+                                },
+                                error: (oError) => {
+                                    MessageBox.error(oError.message);
+                                }
+                            });
+                        }
+                    }
+                });
             },
 
             genderFormatter: function(sKey){
@@ -25,7 +55,7 @@ sap.ui.define([
             },
 
             onListItemClicked: function(oEvent) {
-                let path = oEvent.getSource().getBindingContext().sPath.split("/")[2];
+                let path = oEvent.getSource().getBindingContext().getPath().substring(1);
                 this.getOwnerComponent().getRouter().navTo("RouteCustomer", {path: path});
             },
 
@@ -34,7 +64,7 @@ sap.ui.define([
                 if (!this._pDialog) {
                     this._pDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "at.clouddna.training00.zhoui5.fragment.Dialog",
+                        name: "at.clouddna.training00.zhoui5.view.fragment.Dialog",
                         controller: this
                     }).then(function (oDialog) {
                         oView.addDependent(oDialog);
@@ -78,6 +108,15 @@ sap.ui.define([
                 var oTable = this.byId("main_table");
                 var oBinding = oTable.getBinding("items");
                 oBinding.filter(aFilters, "Application");
+            },
+
+            dateFormatter: function(date) {
+                let dateObj = new Date(date);
+                return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();
+            },
+
+            onCreatePressed: function() {
+                this.getOwnerComponent().getRouter().navTo("CreateCustomer", null, false);
             }
         });
     });
