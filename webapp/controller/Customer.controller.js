@@ -1,21 +1,26 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "at/clouddna/training00/zhoui5/controller/BaseController",
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "at/clouddna/training00/zhoui5/controller/formatter/HOUI5Formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, History, JSONModel, Fragment, MessageBox) {
+    function (BaseController, History, JSONModel, Fragment, MessageBox, HOUI5Formatter) {
         "use strict";
 
-        return Controller.extend("at.clouddna.training00.zhoui5.controller.Customer", {
+        return BaseController.extend("at.clouddna.training00.zhoui5.controller.Customer", {
+            formatter: HOUI5Formatter,
+
             _fragmentList: {},
             bCreate: false,
 
             onInit: function () {
+                this.setContentDensity();
+
                 let oEditModel = new JSONModel({
                     editmode: false
                 });
@@ -23,10 +28,13 @@ sap.ui.define([
                 this.getView().setModel(oEditModel, "editModel");
 
                 let oRouter = this.getOwnerComponent().getRouter();
-                            
+
                 oRouter.getRoute("RouteCustomer").attachPatternMatched(this._onPatternMatched, this);
 
                 oRouter.getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
+
+                //this.getRouter().getRoute("RouteCustomer").attachPatternMatched(this._onPatternMatched, this);
+                //this.getRouter().getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
             },
 
             _onCreatePatternMatched: function (oEvent) {
@@ -72,13 +80,14 @@ sap.ui.define([
             
             onSavePressed: function () {
                 let oModel = this.getView().getModel();
-                let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
-                let sSuccessText = this.bCreate ? oResourceBundle.getText("dialog.create.success") : oResourceBundle.getText("dialog.edit.success");
+                //let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+                let sSuccessText = this.bCreate ? this.getLocalizedText("dialog.create.success") : this.getLocalizedText("dialog.edit.success");
                 oModel.submitChanges({
                     success: (oData, response) => {
                         MessageBox.success(sSuccessText, {
                             onClose: () => {
                                 if (this.bCreate) {
+                                    oModel.refresh(true);
                                     this.onNavBack();
                                 } else {
                                     this._toggleEdit(false);
@@ -104,16 +113,30 @@ sap.ui.define([
             },
 
             _onPatternMatched: function(oEvent) {
-                let path = oEvent.getParameters().arguments["path"];
-                this.getView().bindElement("/" + path);
+                let sPath = oEvent.getParameters().arguments.path;
+                this.sCustomerPath = decodeURIComponent(sPath);
+                this.getView().bindElement(this.sCustomerPath);
+
+                //let path = oEvent.getParameters().arguments["path"];
+                //this.getView().bindElement("/" + path);
+                this._showCustomerFragment("CustomerDisplay");
+                
+                
+
             },
 
             genderFormatter: function(sKey) {
                 let oView = this.getView();
                 let oI18nModel = oView.getModel("i18n");
-                let oResourceBundle = oI18nModel.getResourceBundle();
-                let sText = oResourceBundle.getText(sKey);
+                //let oResourceBundle = oI18nModel.getResourceBundle();
+                let sText = this.getLocalizedText(sKey);
                 return sText;
+                
+            },
+
+            dateFormatter: function(date) {
+                let dateObj = new Date(date);
+                return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();
             },
 
             onNavBack: function() {

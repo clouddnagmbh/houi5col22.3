@@ -1,12 +1,46 @@
 <mvc:View controllerName="at.clouddna.training00.zhoui5.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns:s="sap.f.semantic"
-    xmlns="sap.m">
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable">
     <s:SemanticPage id="main_page">
         <s:titleHeading>
             <Title text="{i18n>title}" />
         </s:titleHeading>
         <s:content>
+            <!--
+            <smartTable:SmartTable id="main_smarttable"
+                entitySet="ZHOUI5_CUSTOMERSET"
+                tableType="ResponsiveTable"
+                enableExport="true"
+                useVariantManagement="false"
+                useTablePersonalisation="true"
+                header="{i18n>main.table.title}"
+                showRowCount="true"
+                enableAutoBinding="true">
+
+                <Table id="main_table">
+                    <columns>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "main_delete_column", "columnIndex": "99"}' />
+                            </customData>
+                            <Text text="{i18n>delete}" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Navigation" press="onListItemPressed">
+                            <cells>
+                                <Button icon="sap-icon://delete" type="Reject" 
+                                        press="onDeleteButtonPressed" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smartTable:SmartTable>
+            -->
+
             <Table items="{/Z_P_CUSTOMER}" id="main_table" headerText="{i18n>main.table.title}" 
             mode="Delete" delete="onDeletePressed">
                 <headerToolbar>
@@ -14,7 +48,7 @@
                         <Title id="_IDGenTitle1" text="{i18n>main.table.title}"/>
                         <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
                         <Button id="main_button_create" icon="sap-icon://add" type="Accept" text="{i18n>create}" press="onCreatePressed"/>
-                        <!-- <Button press="onOpenDialog" type="Transparent" icon="sap-icon://search"/> -->
+                        <!--<Button press="onOpenDialog" type="Transparent" icon="sap-icon://search"/> -->
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>

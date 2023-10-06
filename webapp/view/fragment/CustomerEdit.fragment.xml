@@ -22,7 +22,7 @@
                         <Label text="{i18n>app.gender}" labelFor="gender" />
                         <Select id="gender" selectedKey="{Gender}" items="{genderModel>/genders}">
                             <items>
-                                <core:Item key="{genderModel>key}" text="{path: 'genderModel>text', formatter: '.genderFormatter'}" />
+                                <core:Item key="{genderModel>key}" text="{path: 'genderModel>text', formatter: '.formatter.genderFormatter'}" />
                             </items>
                         </Select>
 

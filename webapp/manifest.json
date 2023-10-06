@@ -21,8 +21,7 @@
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
-          "localUri": "localService/metadata.xml",
-          "useBatch": true
+          "localUri": "localService/metadata.xml"
         }
       }
     }
@@ -119,9 +118,9 @@
           "name": "CreateCustomer",
           "pattern": "createcustomer",
           "target": [
-              "TargetCustomer"
+            "TargetCustomer"
           ]
-        }      
+        }
       ],
       "targets": {
         "Main": {
