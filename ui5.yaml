@@ -18,6 +18,10 @@ server:
         backend:
           - path: /sap
             destination: CloudDNA_WDF_FSD
+          - path: /sap
+            url: https://s4dev.clouddna.at:8001
+            client: '010'
+            destination: CloudDNA_WDF_FSD
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -28,4 +32,4 @@ server:
       afterMiddleware: fiori-tools-appreload
       configuration:
         component: at.clouddna.training00.zhoui5
-        ui5Theme: sap_horizon
+        ui5Theme: sap_fiori_3

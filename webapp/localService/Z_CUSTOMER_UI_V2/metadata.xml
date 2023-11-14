@@ -61,21 +61,21 @@
             xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
             <Annotation Term="Core.SchemaVersion" String="1.0.0"
                 xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-                <EntityType Name="Z_C_CUSTOMERDOCUMENTType" m:HasStream="true" sap:label="CDS Projection - CustomerDocument1" sap:content-version="1">
+                <EntityType Name="Z_C_CUSTOMERDOCUMENTType" sap:label="CDS Projection - CustomerDocument" sap:content-version="1">
                     <Key>
                         <PropertyRef Name="Documentid"/>
                     </Key>
                     <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                     <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                    <Property Name="Documentid" Type="Edm.Guid" Nullable="false" sap:label="DocumentID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
+                    <Property Name="Documentid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
                     <Property Name="Customerid" Type="Edm.Guid" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)" sap:creatable="false" sap:updatable="false"/>
                     <Property Name="Documentname" Type="Edm.String" MaxLength="257" sap:label="File name"/>
                     <Property Name="Documenttype" Type="Edm.String" MaxLength="128" sap:label="MIME Type"/>
-                    <Property Name="Documentcontent" Type="Edm.Binary" sap:label="Binary String" sap:quickinfo="XString"/>
-                    <Property Name="Createdat" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" sap:creatable="false" sap:updatable="false"/>
-                    <Property Name="Createdby" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name" sap:creatable="false" sap:updatable="false"/>
-                    <Property Name="Changedat" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" sap:creatable="false" sap:updatable="false"/>
-                    <Property Name="Changedby" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name" sap:creatable="false" sap:updatable="false"/>
+                    <Property Name="Content" Type="Edm.Binary" sap:label="Binary String" sap:quickinfo="XString"/>
+                    <Property Name="Createdat" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+                    <Property Name="Createdby" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/>
+                    <Property Name="Changedat" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+                    <Property Name="Changedby" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User Name"/>
                     <NavigationProperty Name="to_Customer" Relationship="cds_z_customer_ui.assoc_9FE20F64318DBBDC74B6B643440E2F64" FromRole="ToRole_assoc_9FE20F64318DBBDC74B6B643440E2F64" ToRole="FromRole_assoc_9FE20F64318DBBDC74B6B643440E2F64"/>
                 </EntityType>
                 <EntityType Name="Z_P_CUSTOMERType" sap:label="CDS Projection - Customer" sap:content-version="1">

@@ -23,6 +23,15 @@
           "odataVersion": "2.0",
           "localUri": "localService/metadata.xml"
         }
+      },
+      "z_customer_ui": {
+        "uri": "/sap/opu/odata4/sap/z_customer_ui_v4/srvd/sap/z_customer_ui/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/z_customer_ui/metadata.xml",
+          "odataVersion": "4.0"
+        }
       }
     }
   },
@@ -80,6 +89,16 @@
       "genderModel": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "data/genders.json"
+      },
+      "z_customer_ui": {
+        "dataSource": "z_customer_ui",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
       }
     },
     "resources": {

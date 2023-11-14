@@ -5,40 +5,43 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:s="sap.f.semantic"
     xmlns="sap.m">
-    <u:ObjectPageSection>
+    <u:ObjectPageSection title="{i18n>fragment.edit.title}">
         <u:subSections>
-            <u:ObjectPageSubSection>
+            <u:ObjectPageSubSection titleUppercase="true" >
                 <u:blocks>
-                    <f:SimpleForm title="{Firstname} {Lastname}">
-                        <Label text="{i18n>app.customerid}" labelFor="customerid" />
-                        <Text id="customerid" text="{Customerid}" />
+                    <f:SimpleForm title="{i18n>fragment.edit.info}">
+                        <Label text="{/#Z_P_CUSTOMERType/Firstname/@sap:label}" labelFor="fragment_display_firstname" />
+                        <Text id="fragment_display_firstname" text="{Firstname}" />
 
-                        <Label text="{i18n>app.firstname}" labelFor="firstname" />
-                        <Text id="firstname" text="{Firstname}" />
+                        <Label text="{/#Z_P_CUSTOMERType/Lastname/@sap:label}" labelFor="fragment_display_lastname" />
+                        <Text id="fragment_display_lastname" text="{Lastname}" />
 
-                        <Label text="{i18n>app.lastname}" labelFor="lastname" />
-                        <Text id="lastname" text="{Lastname}" />
+                        <Label text="{/#Z_P_CUSTOMERType/Title/@sap:label}" labelFor="fragment_display_title" />
+                        <Text id="fragment_display_title" text="{Title}" />
 
-                        <Label text="{i18n>app.title}" labelFor="title" />
-                        <Text id="title" text="{Title}" />
+                        <Label text="{/#Z_P_CUSTOMERType/Gender/@sap:label}" labelFor="fragment_display_gender" />
+                        <Text id="fragment_display_gender" text="{= ${Gender} === '1' ? ${i18n>female} : ${i18n>male} }" />
 
-                        <Label text="{i18n>app.gender}" labelFor="gender" />
-                        <Text id="gender" text="{= ${Gender} === '1' ? ${i18n>female} : ${i18n>male} }" />
-
-                        <Label text="{i18n>app.email}" labelFor="email" />
-                        <Text id="email" text="{Email}" />
-
-                        <Label text="{i18n>app.phone}" labelFor="phone" />
-                        <Text id="phone" text="{Phone}" />
-
-                        <Label text="{i18n>app.website}" labelFor="website" />
-                        <Text id="website" text="{Website}" />
-
-                        <Label text="{i18n>app.birthdate}" labelFor="birthdate" />
-                        <Text id="birthdate" text="{path: 'Birthdate', formatter: '.dateFormatter'}" />
+                        <Label text="{/#Z_P_CUSTOMERType/Birthdate/@sap:label}" labelFor="fragment_display_birthdate" />
+                        <Text id="fragment_display_birthdate" text="{path: 'Birthdate', formatter: '.dateFormatter'}" />
                     </f:SimpleForm>
                 </u:blocks>
-            </u:ObjectPageSubSection>             
-        </u:subSections>
+            </u:ObjectPageSubSection>   
+
+            <u:ObjectPageSubSection>
+                <u:blocks>
+                    <f:SimpleForm title="{i18n>fragment.edit.contact}">
+                        <Label text="{/#Z_P_CUSTOMERType/Email/@sap:label}" labelFor="fragment_display_email" />
+                        <Link id="fragment_display_email" text="{Email}" press="handleEmailPress"/>
+
+                        <Label text="{/#Z_P_CUSTOMERType/Phone/@sap:label}" labelFor="fragment_display_phone" />
+                        <Link id="fragment_display_phone" text="{Phone}" press="handleTelPress"/>
+
+                        <Label text="{/#Z_P_CUSTOMERType/Website/@sap:label}" labelFor="fragment_display_website" />
+                        <Link id="fragment_display_website" text="{Website}" href="https://{Website}" target="_blank"/>
+                    </f:SimpleForm>
+                </u:blocks>
+            </u:ObjectPageSubSection>            
+        </u:subSections>           
     </u:ObjectPageSection>
 </core:FragmentDefinition>

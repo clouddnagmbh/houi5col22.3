@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="SAP__measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="SAP__capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="SAP__aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="SAP__validation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="SAP__UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="SAP__HTML5"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Session.v1" Alias="SAP__session"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="com.sap.gateway.srvd.z_customer_ui.v0001" Alias="SAP__self">
+            <Annotation Term="SAP__core.SchemaVersion" String="1.0.0"/>
+            <EntityType Name="Z_C_CUSTOMERDOCUMENTType">
+                <Key>
+                    <PropertyRef Name="Documentid"/>
+                </Key>
+                <Property Name="Documentid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Customerid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Documentname" Type="Edm.String" Nullable="false" MaxLength="257"/>
+                <Property Name="Documenttype" Type="Edm.String" Nullable="false" MaxLength="128"/>
+                <Property Name="Content" Type="Edm.Stream"/>
+                <Property Name="Createdat" Type="Edm.DateTimeOffset"/>
+                <Property Name="Createdby" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="Changedat" Type="Edm.DateTimeOffset"/>
+                <Property Name="Changedby" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="__EntityControl" Type="com.sap.gateway.srvd.z_customer_ui.v0001.EntityControl"/>
+                <NavigationProperty Name="_Customer" Type="com.sap.gateway.srvd.z_customer_ui.v0001.Z_P_CUSTOMERType" Nullable="false" Partner="_CustomerDocument">
+                    <ReferentialConstraint Property="Customerid" ReferencedProperty="Customerid"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Z_P_CUSTOMERType">
+                <Key>
+                    <PropertyRef Name="Customerid"/>
+                </Key>
+                <Property Name="Customerid" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Firstname" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="Lastname" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="132"/>
+                <Property Name="Gender" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="Website" Type="Edm.String" Nullable="false" MaxLength="64"/>
+                <Property Name="Createdby" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="Createdat" Type="Edm.DateTimeOffset"/>
+                <Property Name="Changedby" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="Changedat" Type="Edm.DateTimeOffset"/>
+                <Property Name="Birthdate" Type="Edm.Date"/>
+                <Property Name="__CreateByAssociationControl" Type="com.sap.gateway.srvd.z_customer_ui.v0001.Z_P_CUSTOMERCbAControl"/>
+                <Property Name="__EntityControl" Type="com.sap.gateway.srvd.z_customer_ui.v0001.EntityControl"/>
+                <Property Name="SAP__Messages" Type="Collection(com.sap.gateway.srvd.z_customer_ui.v0001.SAP__Message)" Nullable="false"/>
+                <NavigationProperty Name="_CustomerDocument" Type="Collection(com.sap.gateway.srvd.z_customer_ui.v0001.Z_C_CUSTOMERDOCUMENTType)" Partner="_Customer">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <ComplexType Name="Z_P_CUSTOMERCbAControl">
+                <Property Name="_CustomerDocument" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="EntityControl">
+                <Property Name="Deletable" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Updatable" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="SAP__Message">
+                <Property Name="code" Type="Edm.String" Nullable="false"/>
+                <Property Name="message" Type="Edm.String" Nullable="false"/>
+                <Property Name="target" Type="Edm.String"/>
+                <Property Name="additionalTargets" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="transition" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="numericSeverity" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="longtextUrl" Type="Edm.String"/>
+            </ComplexType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Z_C_CUSTOMERDOCUMENT" EntityType="com.sap.gateway.srvd.z_customer_ui.v0001.Z_C_CUSTOMERDOCUMENTType">
+                    <NavigationPropertyBinding Path="_Customer" Target="Z_P_CUSTOMER"/>
+                </EntitySet>
+                <EntitySet Name="Z_P_CUSTOMER" EntityType="com.sap.gateway.srvd.z_customer_ui.v0001.Z_P_CUSTOMERType">
+                    <NavigationPropertyBinding Path="_CustomerDocument" Target="Z_C_CUSTOMERDOCUMENT"/>
+                </EntitySet>
+            </EntityContainer>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Documentid">
+                <Annotation Term="SAP__common.Label" String="DocumentID"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Heading" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Customerid">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Documenttype">
+                <Annotation Term="SAP__core.IsMediaType"/>
+                <Annotation Term="SAP__common.Label" String="MIME Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Content">
+                <Annotation Term="SAP__core.ContentDisposition">
+                    <Record>
+                        <PropertyValue Property="Filename" Path="Documentname"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.MediaType" Path="Documenttype"/>
+                <Annotation Term="SAP__common.Label" String="Binary String"/>
+                <Annotation Term="SAP__common.Heading" String="XString"/>
+                <Annotation Term="SAP__common.QuickInfo" String="XString"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Createdat">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Createdby">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="User Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Changedat">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Changedby">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="User Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/__EntityControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/Z_C_CUSTOMERDOCUMENT">
+                <Annotation Term="SAP__capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="_Customer"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Path="__EntityControl/Deletable"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Path="__EntityControl/Updatable"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.OptimisticConcurrency">
+                    <Collection/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType">
+                <Annotation Term="SAP__common.Label" String="CDS Projection - CustomerDocument1"/>
+                <Annotation Term="SAP__UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Document"/>
+                        <PropertyValue Property="TypeNamePlural" String="Documents"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="SAP__UI.DataField">
+                                <PropertyValue Property="Value" Path="Documentname"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="SAP__UI.DataField">
+                                <PropertyValue Property="Value" Path="Documentid"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.LineItem">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Documentid"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Customerid"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Documentname"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Documenttype"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Content"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Createdat"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Createdby"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Changedat"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Changedby"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Communication.Contact">
+                    <Record/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Customerid">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Firstname">
+                <Annotation Term="SAP__common.Label" String="Firstname"/>
+                <Annotation Term="SAP__common.Heading" String="First Name"/>
+                <Annotation Term="SAP__common.QuickInfo" String="First Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Lastname">
+                <Annotation Term="SAP__common.Label" String="Lastname"/>
+                <Annotation Term="SAP__common.Heading" String="Last Name"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Last Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Title">
+                <Annotation Term="SAP__common.Label" String="Title"/>
+                <Annotation Term="SAP__common.Heading" String="Academic Title"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Academic Title: Written Form"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Phone">
+                <Annotation Term="SAP__common.Label" String="Phone"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Heading" String="Telephone"/>
+                <Annotation Term="SAP__common.QuickInfo" String="First Telephone No.: Dialing Code + Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Email">
+                <Annotation Term="SAP__common.Label" String="Email"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Heading" String="E-mail"/>
+                <Annotation Term="SAP__common.QuickInfo" String="E-mail address"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Gender">
+                <Annotation Term="SAP__common.Label" String="Gender"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Heading" String="G"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Gender of business partner"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Website">
+                <Annotation Term="SAP__common.Label" String="Website"/>
+                <Annotation Term="SAP__common.Heading" String="Website Name"/>
+                <Annotation Term="SAP__common.QuickInfo" String="DOD : Website"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Createdby">
+                <Annotation Term="SAP__common.Label" String="Createdby"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Heading" String="User Name"/>
+                <Annotation Term="SAP__common.QuickInfo" String="User Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Createdat">
+                <Annotation Term="SAP__common.Label" String="Createdat"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Heading" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Changedby">
+                <Annotation Term="SAP__common.Label" String="Changedby"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Heading" String="User Name"/>
+                <Annotation Term="SAP__common.QuickInfo" String="User Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Changedat">
+                <Annotation Term="SAP__common.Label" String="Changedat"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Heading" String="Time Stamp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/Birthdate">
+                <Annotation Term="SAP__common.Label" String="Birthdate"/>
+                <Annotation Term="SAP__common.Heading" String="Date in Format YYYYMMDD"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Field of type DATS"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/__CreateByAssociationControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/__EntityControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType/_CustomerDocument">
+                <Annotation Term="SAP__common.Composition"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/Z_P_CUSTOMER">
+                <Annotation Term="SAP__capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="_CustomerDocument"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Path="__CreateByAssociationControl/_CustomerDocument"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>__CreateByAssociationControl</PropertyPath>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>__CreateByAssociationControl</PropertyPath>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Path="__EntityControl/Deletable"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Path="__EntityControl/Updatable"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.OptimisticConcurrency">
+                    <Collection/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_P_CUSTOMERType">
+                <Annotation Term="SAP__common.Label" String="CDS Projection - Customer"/>
+                <Annotation Term="SAP__UI.Facets">
+                    <Collection>
+                        <Record Type="SAP__UI.CollectionFacet">
+                            <PropertyValue Property="Label" String="General Information"/>
+                            <PropertyValue Property="ID" String="GENERALINFORMATION"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="SAP__UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Personal Information"/>
+                                        <PropertyValue Property="ID" String="PERSONALINFORMATION"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification"/>
+                                    </Record>
+                                    <Record Type="SAP__UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String="Communication"/>
+                                        <PropertyValue Property="ID" String="COMMUNICATION"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@SAP__UI.FieldGroup#COMM"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="SAP__UI.CollectionFacet">
+                            <PropertyValue Property="Label" String="Administration"/>
+                            <PropertyValue Property="ID" String="ADMINISTRATION"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="SAP__UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String=""/>
+                                        <PropertyValue Property="ID" String="ADMINISTRATIONINFORMATION"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@SAP__UI.FieldGroup#ADMIN"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                        <Record Type="SAP__UI.CollectionFacet">
+                            <PropertyValue Property="Label" String="Documents"/>
+                            <PropertyValue Property="ID" String="DOCUMENT"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <Record Type="SAP__UI.ReferenceFacet">
+                                        <PropertyValue Property="Label" String=""/>
+                                        <PropertyValue Property="ID" String="DOCUMENTINFORMATION"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@SAP__UI.FieldGroup#DOC"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.FieldGroup" Qualifier="ADMIN">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Createdby"/>
+                                </Record>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Createdat"/>
+                                </Record>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Changedby"/>
+                                </Record>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Changedat"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.FieldGroup" Qualifier="COMM">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Phone"/>
+                                </Record>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Email"/>
+                                </Record>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="Website"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.FieldGroup" Qualifier="DOC">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="SAP__UI.DataField">
+                                    <PropertyValue Property="Value" Path="_CustomerDocument"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Customer"/>
+                        <PropertyValue Property="TypeNamePlural" String="Customers"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="SAP__UI.DataField">
+                                <PropertyValue Property="Value" Path="Lastname"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="SAP__UI.DataField">
+                                <PropertyValue Property="Value" Path="Firstname"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Firstname"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Lastname"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Title"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Gender"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Birthdate"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.LineItem">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Firstname"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Lastname"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Phone"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Email"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Birthdate"/>
+                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Communication.Contact">
+                    <Record/>
+                </Annotation>
+                <Annotation Term="SAP__common.Messages" Path="SAP__Messages"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container">
+                <Annotation Term="SAP__aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="SAP__aggregation.RollupType/None"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="SAP__capabilities.FilterFunctions">
+                    <Collection>
+                        <String>eq</String>
+                        <String>ne</String>
+                        <String>gt</String>
+                        <String>ge</String>
+                        <String>lt</String>
+                        <String>le</String>
+                        <String>and</String>
+                        <String>or</String>
+                        <String>contains</String>
+                        <String>startswith</String>
+                        <String>endswith</String>
+                        <String>any</String>
+                        <String>all</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SupportedFormats">
+                    <Collection>
+                        <String>application/json</String>
+                        <String>application/pdf</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__PDF.Features">
+                    <Record>
+                        <PropertyValue Property="DocumentDescriptionReference" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="DocumentDescriptionCollection" String="MyDocumentDescriptions"/>
+                        <PropertyValue Property="ArchiveFormat" Bool="true"/>
+                        <PropertyValue Property="Border" Bool="true"/>
+                        <PropertyValue Property="CoverPage" Bool="true"/>
+                        <PropertyValue Property="FitToPage" Bool="true"/>
+                        <PropertyValue Property="FontName" Bool="true"/>
+                        <PropertyValue Property="FontSize" Bool="true"/>
+                        <PropertyValue Property="Margin" Bool="true"/>
+                        <PropertyValue Property="Signature" Bool="true"/>
+                        <PropertyValue Property="ResultSizeDefault" Int="20000"/>
+                        <PropertyValue Property="ResultSizeMaximum" Int="20000"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Z_C_CUSTOMERDOCUMENTType/Documentname">
+                <Annotation Term="SAP__common.Label" String="File name"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

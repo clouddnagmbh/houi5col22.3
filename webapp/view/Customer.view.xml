@@ -4,30 +4,53 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:s="sap.f.semantic"
     xmlns="sap.m">
-    <u:ObjectPageLayout id="ObjectPageLayout"
+    <u:ObjectPageLayout id="cust_objectpagelayout"
         showTitleInHeaderContent="true"
         showFooter="{= ${editModel>/editmode}}"
         upperCaseAnchorBar="false">
         <u:headerTitle>
             <u:ObjectPageDynamicHeaderTitle>
                 <u:expandedHeading>
-                    <HBox>
-                        <Title text="{i18n>customerDetails}" />
-                        <ToolbarSpacer />
-                    </HBox>
-                </u:expandedHeading>
+					<Title text="{Firstname} {Lastname}"/>
+				</u:expandedHeading>
+
+                <u:snappedHeading>
+					<FlexBox fitContainer="true" alignItems="Center">
+						<Avatar src="sap-icon://person-placeholder" class="sapUiTinyMarginEnd"/>
+					    <Title text="{Firstname} {Lastname}"/>
+					</FlexBox>
+				</u:snappedHeading>
+    
                 <u:actions>
-                    <Button id="app_edit_button" text="{i18n>edit}" type="Emphasized" icon="sap-icon://edit" 
-                    press="onEditPressed" visible="{= !${editModel>/editmode}}" />
+                    <HBox >
+                        <Button id="cust_button_attachments" text="{i18n>cust.attachments}"
+                        visible="{= !${editModel>/editmode} }" icon="sap-icon://attachment"
+                        press=".onOpenAttachments"/>
+
+                        <Button id="cust_edit_button" text="{i18n>cust.edit.button}" type="Emphasized" icon="sap-icon://edit" 
+                        press="onEditPressed" visible="{= !${editModel>/editmode}}" />
+                    </HBox>
 				</u:actions>
             </u:ObjectPageDynamicHeaderTitle>
         </u:headerTitle>
+
+        <u:headerContent>
+            <FlexBox >
+                <Avatar class="sapUiSmallMarginEnd" src="sap-icon://person-placeholder" displaySize="L" />
+
+                <VBox >
+                    <Label text="{/#Z_P_CUSTOMERType/Birthdate/@sap:label}" labelFor="cust_header_birthdate"/>
+                    <Title id="cust_header_birthdate" text="{path: 'Birthdate', formatter: '.dateFormatter'}" titleStyle="H6"/>
+                </VBox>
+            </FlexBox>
+		</u:headerContent>
+
         <u:footer>
-            <Toolbar id="app_bar_footer">
+            <Toolbar id="cust_toolbar">
                 <ToolbarSpacer />
-                <Button id="app_save_button" text="{i18n>save}" type="Accept" icon="sap-icon://save" 
+                <Button id="cust_save_button" text="{i18n>cust.save.button}" type="Accept" icon="sap-icon://save" 
                 press="onSavePressed" visible="{= ${editModel>/editmode}}" />
-                <Button id="app_cancel_button" text="{i18n>cancel}" type="Reject" icon="sap-icon://cancel" 
+                <Button id="cust_cancel_button" text="{i18n>cust.cancel.button}" type="Reject" icon="sap-icon://cancel" 
                 press="onCancelPressed" visible="{= ${editModel>/editmode}}" />
             </Toolbar>
         </u:footer>

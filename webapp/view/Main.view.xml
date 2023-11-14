@@ -4,93 +4,56 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable">
-    <s:SemanticPage id="main_page">
+    <s:SemanticPage id="main_page" showFooter="false">
         <s:titleHeading>
-            <Title text="{i18n>title}" />
+            <Title text="{i18n>main.page.title}" />
         </s:titleHeading>
         <s:content>
-            <!--
-            <smartTable:SmartTable id="main_smarttable"
-                entitySet="ZHOUI5_CUSTOMERSET"
-                tableType="ResponsiveTable"
-                enableExport="true"
-                useVariantManagement="false"
-                useTablePersonalisation="true"
-                header="{i18n>main.table.title}"
-                showRowCount="true"
-                enableAutoBinding="true">
-
-                <Table id="main_table">
-                    <columns>
-                        <Column>
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "main_delete_column", "columnIndex": "99"}' />
-                            </customData>
-                            <Text text="{i18n>delete}" />
-                        </Column>
-                    </columns>
-                    <items>
-                        <ColumnListItem type="Navigation" press="onListItemPressed">
-                            <cells>
-                                <Button icon="sap-icon://delete" type="Reject" 
-                                        press="onDeleteButtonPressed" />
-                            </cells>
-                        </ColumnListItem>
-                    </items>
-                </Table>
-            </smartTable:SmartTable>
-            -->
-
             <Table items="{/Z_P_CUSTOMER}" id="main_table" headerText="{i18n>main.table.title}" 
-            mode="Delete" delete="onDeletePressed">
+            mode="Delete" delete="onDeletePressed" growing="true">
                 <headerToolbar>
-                    <OverflowToolbar id="_IDGenOverflowToolbar1">
-                        <Title id="_IDGenTitle1" text="{i18n>main.table.title}"/>
-                        <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-                        <Button id="main_button_create" icon="sap-icon://add" type="Accept" text="{i18n>create}" press="onCreatePressed"/>
-                        <!--<Button press="onOpenDialog" type="Transparent" icon="sap-icon://search"/> -->
+                    <OverflowToolbar id="main_overflow_toolbar">
+                        <Title id="main_table_title" text="{i18n>main.table.title}"/>
+                        <ToolbarSpacer/>
+                        <Button id="main_button_create" icon="sap-icon://add" type="Transparent" text="{i18n>main.create.button}" press="onCreatePressed"/>
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
-                    <Column id="idMainColumn">
-                        <Text id="main_text_customerid" text="{i18n>app.customerid}"/>
-                    </Column>
                     <Column id="main_column_firstname">
-                        <Text id="main_text_firstname" text="{i18n>app.firstname}"/>
+                        <Text id="main_text_firstname" text="{/#Z_P_CUSTOMER/Firstname/@sap:label}"/>
                     </Column>
                     <Column id="main_column_lastname">
-                        <Text id="main_text_lastname" text="{i18n>app.lastname}"/>
+                        <Text id="main_text_lastname" text="{/#Z_P_CUSTOMER/Lastname/@sap:label}"/>
                     </Column>
-                    <Column id="main_column_title" minScreenWidth="Desktop">
-                        <Text id="main_text_title" text="{i18n>app.title}"/>
+                    <Column id="main_column_title" minScreenWidth="Desktop" demandPopin="true">
+                        <Text id="main_text_title" text="{/#Z_P_CUSTOMER/Title/@sap:label}"/>
                     </Column>
                     <Column id="main_column_gender" minScreenWidth="Desktop">
-                        <Text id="main_text_gender" text="{i18n>app.gender}"/>
+                        <Text id="main_text_gender" text="{/#Z_P_CUSTOMER/Gender/@sap:label}"/>
                     </Column>
-                    <Column id="main_column_birthdate" minScreenWidth="Desktop">
-                        <Text id="main_text_birthdate" text="{i18n>app.birthdate}"/>
+                    <Column id="main_column_birthdate" minScreenWidth="Desktop" demandPopin="true">
+                        <Text id="main_text_birthdate" text="{/#Z_P_CUSTOMER/Birthdate/@sap:label}"/>
                     </Column>
                     <Column id="main_column_email" minScreenWidth="Desktop">
-                        <Text id="main_text_email" text="{i18n>app.email}"/>
+                        <Text id="main_text_email" text="{/#Z_P_CUSTOMER/Email/@sap:label}"/>
                     </Column>
                     <Column id="main_column_phone" minScreenWidth="Desktop">
-                        <Text id="main_text_phone" text="{i18n>app.phone}"/>
+                        <Text id="main_text_phone" text="{/#Z_P_CUSTOMER/Phone/@sap:label}"/>
                     </Column>
                     <Column id="main_column_website" minScreenWidth="Desktop">
-                        <Text id="main_text_website" text="{i18n>app.website}"/>
+                        <Text id="main_text_website" text="{/#Z_P_CUSTOMER/Website/@sap:label}"/>
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation" press="onListItemClicked">
                         <cells>
-                            <ObjectIdentifier title="{Customerid}"/>
                             <Text text="{Firstname}"/>
                             <Text text="{Lastname}"/>
                             <Text text="{Title}"/>
                             <Text text="{= ${Gender} === '1' ? ${i18n>female} : ${i18n>male} }"/>
                             <Text text="{path: 'Birthdate', formatter: '.dateFormatter'}"/>
-                            <Text text="{Email}"/>
-                            <Text text="{Phone}"/>
+                            <Link text="{Email}" press="handleEmailPress"/>
+                            <Link text="{Phone}" press="handleTelPress"/>
                             <Link text="{Website}" href="https://{Website}" target="_blank"/>
                         </cells>
                     </ColumnListItem>

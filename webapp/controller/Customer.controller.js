@@ -4,12 +4,13 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
-    "at/clouddna/training00/zhoui5/controller/formatter/HOUI5Formatter"
+    "at/clouddna/training00/zhoui5/controller/formatter/HOUI5Formatter",
+    "sap/ui/core/Item"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, History, JSONModel, Fragment, MessageBox, HOUI5Formatter) {
+    function (BaseController, History, JSONModel, Fragment, MessageBox, HOUI5Formatter, Item) {
         "use strict";
 
         return BaseController.extend("at.clouddna.training00.zhoui5.controller.Customer", {
@@ -32,9 +33,14 @@ sap.ui.define([
                 oRouter.getRoute("RouteCustomer").attachPatternMatched(this._onPatternMatched, this);
 
                 oRouter.getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
+            },
 
-                //this.getRouter().getRoute("RouteCustomer").attachPatternMatched(this._onPatternMatched, this);
-                //this.getRouter().getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
+            _onPatternMatched: function(oEvent) {
+                let sPath = oEvent.getParameters().arguments.path;
+                this.sCustomerPath = decodeURIComponent(sPath);
+                this.getView().bindElement(this.sCustomerPath);
+
+                this._showCustomerFragment("CustomerDisplay");
             },
 
             _onCreatePatternMatched: function (oEvent) {
@@ -47,8 +53,16 @@ sap.ui.define([
                 this._showCustomerFragment("CustomerEdit");
             },
 
+            _toggleEdit: function(bEditMode){
+                let oEditModel = this.getView().getModel("editModel");
+            
+                oEditModel.setProperty("/editmode", bEditMode);
+            
+                this._showCustomerFragment(bEditMode ? "CustomerEdit" : "CustomerDisplay");
+            },
+
             _showCustomerFragment: function(sFragmentName) {
-                let page = this.getView().byId("ObjectPageLayout");
+                let page = this.getView().byId("cust_objectpagelayout");
                 
                 page.removeAllSections();
                 
@@ -66,21 +80,110 @@ sap.ui.define([
                 }
             },
 
+            onOpenAttachments: function(oEvent) {
+                let oView = this.getView();
+            
+                if (!this._pDialog) {
+                    this._pDialog = Fragment.load({
+                        id: oView.getId(),
+                        name: "at.clouddna.training00.zhoui5.view.fragment.AttachmentDialog",
+                        controller: this
+                    }).then(function (oDialog) {
+                        oView.addDependent(oDialog);
+                        return oDialog;
+                    });
+                }
+              
+                this._pDialog.then(function (oDialog) {
+                    oDialog.open();
+                }.bind(this));
+            },
+
+            onAfterItemAdded: function(oEvent){
+                const oUploadSet = this.getView().byId("attachments_uploadset");
+                const oUploadSetItem = oEvent.getParameters().item;
+                const sFileName = oUploadSetItem.getFileName();
+            
+                oUploadSet.removeAllHeaderFields();
+
+                let sPath = this.getView().getBindingContext().sPath;
+                this.getView().setBusy(true);
+                this.getView().getModel().create(sPath + "/to_CustomerDocument", {
+                    Documenttype: oUploadSetItem.getMediaType(),
+                    Documentname: oUploadSetItem.getFileName(),
+                }, {
+                    success: (data, response)=>{
+                        this.getView().setBusy(false);
+                        console.log(data);
+                        console.log(response);
+                       
+                        oUploadSet.addHeaderField(new Item({
+                            key: "X-CSRF-Token",
+                            text: this.getView().getModel().getSecurityToken()
+                        }));
+
+                        oUploadSet.setUploadUrl("proxy/" + data.__metadata.uri + "/Documentcontent");
+                        
+                        oUploadSet.setHttpRequestMethod("PUT");
+
+                        /*oUploadSet.addHeaderField(new Item({
+                            key: "Content-Disposition",
+                            text: `attachment; Documentname=${oUploadSetItem.getFileName()}`
+                        }));*/
+
+                        oUploadSet.uploadItem(oUploadSetItem);
+                    },
+                    error: (oError)=>{
+                        this.getView().setBusy(false);
+                        MessageBox.error(oError.message);
+                    }
+                });
+            },
+
+            formatUrl: function(sDocId, sCustomerId){
+                let sPath = this.getView().getModel().createKey("/Z_C_CUSTOMERDOCUMENT", {
+                    Documentid: sDocId,
+                    Customerid: sCustomerId
+                });
+                return this.getView().getModel().sServiceUrl + sPath + "/$value";
+            },
+
+            onUploadCompleted: function(){
+                this.getView().getModel().refresh(true);
+            },
+            
+            onRemovePressed: function(oEvent){
+                oEvent.preventDefault();
+
+                const oModel = this.getView().getModel();
+                const sPath = oEvent.getSource().getBindingContext().getPath();
+
+                this.getView().setBusy(true);
+                this.getView().getModel().remove(sPath, {
+                    success: (oData, response)=>{
+                        this.getView().setBusy(false);
+                        MessageBox.success(this.getLocalizedText("dialog.delete.success"));
+                        oModel.refresh(true);
+                    },
+                    error: (oError)=>{
+                        this.getView().setBusy(false);
+                        MessageBox.error(oError.message);
+                    }
+                });
+            },
+            
+            onAttachmentsDialogClose: function(){
+                this._pDialog.then(function(oDialog){
+                    oDialog.close();
+                }.bind(this));
+            },
+
             onEditPressed: function() {
                 this._toggleEdit(true);
             },
             
-            _toggleEdit: function(bEditMode){
-                let oEditModel = this.getView().getModel("editModel");
-            
-                oEditModel.setProperty("/editmode", bEditMode);
-            
-                this._showCustomerFragment(bEditMode ? "CustomerEdit" : "CustomerDisplay");
-            },
-            
             onSavePressed: function () {
                 let oModel = this.getView().getModel();
-                //let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
                 let sSuccessText = this.bCreate ? this.getLocalizedText("dialog.create.success") : this.getLocalizedText("dialog.edit.success");
                 oModel.submitChanges({
                     success: (oData, response) => {
@@ -112,23 +215,9 @@ sap.ui.define([
                 });
             },
 
-            _onPatternMatched: function(oEvent) {
-                let sPath = oEvent.getParameters().arguments.path;
-                this.sCustomerPath = decodeURIComponent(sPath);
-                this.getView().bindElement(this.sCustomerPath);
-
-                //let path = oEvent.getParameters().arguments["path"];
-                //this.getView().bindElement("/" + path);
-                this._showCustomerFragment("CustomerDisplay");
-                
-                
-
-            },
-
             genderFormatter: function(sKey) {
                 let oView = this.getView();
                 let oI18nModel = oView.getModel("i18n");
-                //let oResourceBundle = oI18nModel.getResourceBundle();
                 let sText = this.getLocalizedText(sKey);
                 return sText;
                 

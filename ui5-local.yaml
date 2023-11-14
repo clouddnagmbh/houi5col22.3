@@ -29,6 +29,14 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        backend:
+          - path:
+            url:
+            client:
+          - path: /sap
+            url: https://s4dev.clouddna.at:8001
+            client: '010'
+            destination: CloudDNA_WDF_FSD
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:

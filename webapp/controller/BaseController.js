@@ -82,6 +82,18 @@ sap.ui.define([
             logWarning: function (sMessage) {
                 let oLogger = Log.getLogger(this.getView().getControllerName());
                 oLogger.warning("WARNING - " + sMessage);
+            },
+
+            _getVal: function(evt) {
+                return evt.getSource().getText();
+            },
+    
+            handleTelPress: function (evt) {
+                sap.m.URLHelper.triggerTel(this._getVal(evt));
+            },
+    
+            handleEmailPress: function (evt) {
+                sap.m.URLHelper.triggerEmail(this._getVal(evt), "Info Request", false, false, false, true);
             }
         });
     });
