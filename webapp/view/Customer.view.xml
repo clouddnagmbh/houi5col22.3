@@ -23,12 +23,11 @@
     
                 <u:actions>
                     <HBox >
-                        <Button id="cust_button_attachments" text="{i18n>cust.attachments}"
-                        visible="{= !${editModel>/editmode} }" icon="sap-icon://attachment"
-                        press=".onOpenAttachments"/>
-
                         <Button id="cust_edit_button" text="{i18n>cust.edit.button}" type="Emphasized" icon="sap-icon://edit" 
-                        press="onEditPressed" visible="{= !${editModel>/editmode}}" />
+                        press="onEditPressed" visible="{= !${editModel>/editmode}}" class="sapUiTinyMarginEnd"/>
+                        <Button id="cust_button_attachments" text="{i18n>cust.attachments}"
+                            visible="{= !${editModel>/editmode} }" icon="sap-icon://attachment"
+                            press=".onOpenAttachments"/>
                     </HBox>
 				</u:actions>
             </u:ObjectPageDynamicHeaderTitle>
@@ -49,7 +48,7 @@
             <Toolbar id="cust_toolbar">
                 <ToolbarSpacer />
                 <Button id="cust_save_button" text="{i18n>cust.save.button}" type="Accept" icon="sap-icon://save" 
-                press="onSavePressed" visible="{= ${editModel>/editmode}}" />
+                press="onSavePressed" visible="{= ${editModel>/editmode}}" class="sapUiTinyMarginEnd"/>
                 <Button id="cust_cancel_button" text="{i18n>cust.cancel.button}" type="Reject" icon="sap-icon://cancel" 
                 press="onCancelPressed" visible="{= ${editModel>/editmode}}" />
             </Toolbar>

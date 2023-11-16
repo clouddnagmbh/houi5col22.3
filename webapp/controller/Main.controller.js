@@ -1,16 +1,12 @@
 sap.ui.define([
     "at/clouddna/training00/zhoui5/controller/BaseController",
-    'sap/ui/core/syncStyleClass',
-    'sap/ui/core/Fragment',
-    "sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
     "sap/m/MessageBox",
     "at/clouddna/training00/zhoui5/controller/formatter/HOUI5Formatter"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, syncStyleClass, Fragment, Filter, FilterOperator, MessageBox, HOUI5Formatter) {
+    function (BaseController, MessageBox, HOUI5Formatter) {
         "use strict";
 
         return BaseController.extend("at.clouddna.training00.zhoui5.controller.Main", {
@@ -32,14 +28,17 @@ sap.ui.define([
                     onClose: (oAction)=>{
                         if(MessageBox.Action.YES === oAction){
                             this.getView().setBusy(true);
+
                             oModel.remove(sPath, {
                                 success: (oData, response) => {
                                     this.getView().setBusy(false);
+
                                     MessageBox.success(this.getLocalizedText("dialog.delete.success"));
                                     oModel.refresh(true);
                                 },
                                 error: (oError) => {
                                     this.getView().setBusy(false);
+
                                     MessageBox.error(oError.message);
                                 }
                             });
@@ -50,13 +49,14 @@ sap.ui.define([
 
             onListItemClicked: function(oEvent) {
                 const sPath = oEvent.getSource().getBindingContext().getPath();
+
                 this.getRouter().navTo("RouteCustomer", {
                     path: encodeURIComponent(sPath)
-                });
+                }, false);
             },
 
             onCreatePressed: function() {
-                this.getOwnerComponent().getRouter().navTo("CreateCustomer", null, false);
+                this.getRouter().navTo("CreateCustomer", null, false);
             },
         });
     });

@@ -5,7 +5,7 @@
             id="attachments_uploadset"
             showIcons="true"
             items="{path: 'to_CustomerDocument', templateShareable: false, sorter: { path: 'Createdat', descending: true}}"
-            mode="MultiSelect"
+            mode="None"
             instantUpload="false"
             afterItemRemoved="onAfterUploadItemRemoved"
             afterItemAdded="onAfterItemAdded"
@@ -18,7 +18,7 @@
                 visibleRemove="true"
                 visibleEdit="false"
                 removePressed="onRemovePressed"
-                url="{parts: ['DocId', 'Customerid'], formatter: '.formatUrl'}"/>
+                url="{path: 'Documentid', formatter: '.formatUrl'}"/>
             </upload:items>
         </upload:UploadSet>
         <buttons>

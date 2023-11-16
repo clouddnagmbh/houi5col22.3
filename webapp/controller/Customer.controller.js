@@ -1,6 +1,5 @@
 sap.ui.define([
     "at/clouddna/training00/zhoui5/controller/BaseController",
-    "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
@@ -10,7 +9,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, History, JSONModel, Fragment, MessageBox, HOUI5Formatter, Item) {
+    function (BaseController, JSONModel, Fragment, MessageBox, HOUI5Formatter, Item) {
         "use strict";
 
         return BaseController.extend("at.clouddna.training00.zhoui5.controller.Customer", {
@@ -20,23 +19,22 @@ sap.ui.define([
             bCreate: false,
 
             onInit: function () {
-                this.setContentDensity();
-
-                let oEditModel = new JSONModel({
+                const oRouter = this.getOwnerComponent().getRouter();
+                const oEditModel = new JSONModel({
                     editmode: false
                 });
 
+                this.setContentDensity();
+
                 this.getView().setModel(oEditModel, "editModel");
 
-                let oRouter = this.getOwnerComponent().getRouter();
-
                 oRouter.getRoute("RouteCustomer").attachPatternMatched(this._onPatternMatched, this);
-
                 oRouter.getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
             },
 
             _onPatternMatched: function(oEvent) {
-                let sPath = oEvent.getParameters().arguments.path;
+                const sPath = oEvent.getParameters().arguments.path;
+
                 this.sCustomerPath = decodeURIComponent(sPath);
                 this.getView().bindElement(this.sCustomerPath);
 
@@ -44,17 +42,20 @@ sap.ui.define([
             },
 
             _onCreatePatternMatched: function (oEvent) {
+                const oNewCustomerContext = this.getView().getModel().createEntry("/Z_P_CUSTOMER");
+                const oEditModel = this.getView().getModel("editModel");
+                
                 this.bCreate = true;
-            
-                let oNewCustomerContext = this.getView().getModel().createEntry("/Z_P_CUSTOMER");
+                
                 this.getView().bindElement(oNewCustomerContext.getPath());
             
-                this.getView().getModel("editModel").setProperty("/editmode", true);
+                oEditModel.setProperty("/editmode", true);
+
                 this._showCustomerFragment("CustomerEdit");
             },
 
             _toggleEdit: function(bEditMode){
-                let oEditModel = this.getView().getModel("editModel");
+                const oEditModel = this.getView().getModel("editModel");
             
                 oEditModel.setProperty("/editmode", bEditMode);
             
@@ -62,7 +63,7 @@ sap.ui.define([
             },
 
             _showCustomerFragment: function(sFragmentName) {
-                let page = this.getView().byId("cust_objectpagelayout");
+                const page = this.getView().byId("cust_objectpagelayout");
                 
                 page.removeAllSections();
                 
@@ -81,15 +82,13 @@ sap.ui.define([
             },
 
             onOpenAttachments: function(oEvent) {
-                let oView = this.getView();
-            
                 if (!this._pDialog) {
                     this._pDialog = Fragment.load({
-                        id: oView.getId(),
+                        id: this.getView().getId(),
                         name: "at.clouddna.training00.zhoui5.view.fragment.AttachmentDialog",
                         controller: this
-                    }).then(function (oDialog) {
-                        oView.addDependent(oDialog);
+                    }).then((oDialog)=>{
+                        this.getView().addDependent(oDialog);
                         return oDialog;
                     });
                 }
@@ -102,34 +101,29 @@ sap.ui.define([
             onAfterItemAdded: function(oEvent){
                 const oUploadSet = this.getView().byId("attachments_uploadset");
                 const oUploadSetItem = oEvent.getParameters().item;
-                const sFileName = oUploadSetItem.getFileName();
+                const sPath = this.getView().getBindingContext().sPath;
             
                 oUploadSet.removeAllHeaderFields();
 
-                let sPath = this.getView().getBindingContext().sPath;
                 this.getView().setBusy(true);
-                this.getView().getModel().create(sPath + "/to_CustomerDocument", {
-                    Documenttype: oUploadSetItem.getMediaType(),
-                    Documentname: oUploadSetItem.getFileName(),
-                }, {
-                    success: (data, response)=>{
+
+                this.getView().getModel().create(sPath + "/to_CustomerDocument", {}, {
+                    success: (oData, response)=>{
                         this.getView().setBusy(false);
-                        console.log(data);
-                        console.log(response);
                        
                         oUploadSet.addHeaderField(new Item({
                             key: "X-CSRF-Token",
                             text: this.getView().getModel().getSecurityToken()
                         }));
 
-                        oUploadSet.setUploadUrl("proxy/" + data.__metadata.uri + "/Documentcontent");
+                        oUploadSet.addHeaderField(new Item({
+                            key: "Content-Disposition",
+                            text: `filename=${oUploadSetItem.getFileName()}`
+                        }));
+
+                        oUploadSet.setUploadUrl(`${this.getModel().sServiceUrl}/Z_C_CUSTOMERDOCUMENT(guid'${oData.Documentid}')/$value`);
                         
                         oUploadSet.setHttpRequestMethod("PUT");
-
-                        /*oUploadSet.addHeaderField(new Item({
-                            key: "Content-Disposition",
-                            text: `attachment; Documentname=${oUploadSetItem.getFileName()}`
-                        }));*/
 
                         oUploadSet.uploadItem(oUploadSetItem);
                     },
@@ -140,15 +134,16 @@ sap.ui.define([
                 });
             },
 
-            formatUrl: function(sDocId, sCustomerId){
-                let sPath = this.getView().getModel().createKey("/Z_C_CUSTOMERDOCUMENT", {
-                    Documentid: sDocId,
-                    Customerid: sCustomerId
+            formatUrl: function(sDocumentid){
+                const sPath = this.getView().getModel().createKey("/Z_C_CUSTOMERDOCUMENT", {
+                    Documentid: sDocumentid
                 });
+
                 return this.getView().getModel().sServiceUrl + sPath + "/$value";
             },
 
             onUploadCompleted: function(){
+                this.getView().setBusy(false);
                 this.getView().getModel().refresh(true);
             },
             
@@ -183,10 +178,15 @@ sap.ui.define([
             },
             
             onSavePressed: function () {
-                let oModel = this.getView().getModel();
-                let sSuccessText = this.bCreate ? this.getLocalizedText("dialog.create.success") : this.getLocalizedText("dialog.edit.success");
+                const oModel = this.getView().getModel();
+                const sSuccessText = this.bCreate ? this.getLocalizedText("dialog.create.success") : this.getLocalizedText("dialog.edit.success");
+
+                this.getView().setBusy(true);
+
                 oModel.submitChanges({
                     success: (oData, response) => {
+                        this.getView().setBusy(false);
+
                         MessageBox.success(sSuccessText, {
                             onClose: () => {
                                 if (this.bCreate) {
@@ -199,13 +199,15 @@ sap.ui.define([
                         });
                     },
                     error: (oError) => {
+                        this.getView().setBusy(false);
                         MessageBox.error(oError.message);
                     }
                 });
             },
             
             onCancelPressed: function () {
-                let oModel = this.getView().getModel();
+                const oModel = this.getView().getModel();
+
                 oModel.resetChanges().then(() => {
                     if (this.bCreate) {
                         this.onNavBack();
@@ -216,24 +218,16 @@ sap.ui.define([
             },
 
             genderFormatter: function(sKey) {
-                let oView = this.getView();
-                let oI18nModel = oView.getModel("i18n");
-                let sText = this.getLocalizedText(sKey);
+                const sText = this.getLocalizedText(sKey);
+
                 return sText;
                 
             },
 
             dateFormatter: function(date) {
-                let dateObj = new Date(date);
-                return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();
-            },
+                const dateObj = new Date(date);
 
-            onNavBack: function() {
-                if (History.getInstance().getPreviousHash() !== undefined) {
-                    window.history.go(-1);
-                } else {
-                    this.getOwnerComponent().getRouter().navTo("Main");
-                }
+                return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();
             }
         });
     });
