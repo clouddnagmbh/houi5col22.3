@@ -22,7 +22,7 @@
                         <Label text="{/#Z_P_CUSTOMERType/Gender/@sap:label}" labelFor="fragment_edit_gender" />
                         <Select id="fragment_edit_gender" selectedKey="{Gender}" items="{genderModel>/genders}">
                             <items>
-                                <core:Item key="{genderModel>key}" text="{path: 'genderModel>text', formatter: '.formatter.genderFormatter'}" />
+                                <core:Item key="{genderModel>key}" text="{path: 'genderModel>text', formatter: '.genderFormatter'}" />
                             </items>
                         </Select>
                         

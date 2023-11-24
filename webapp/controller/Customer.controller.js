@@ -54,13 +54,7 @@ sap.ui.define([
                 this._showCustomerFragment("CustomerEdit");
             },
 
-            _toggleEdit: function(bEditMode){
-                const oEditModel = this.getView().getModel("editModel");
             
-                oEditModel.setProperty("/editmode", bEditMode);
-            
-                this._showCustomerFragment(bEditMode ? "CustomerEdit" : "CustomerDisplay");
-            },
 
             _showCustomerFragment: function(sFragmentName) {
                 const page = this.getView().byId("cust_objectpagelayout");
@@ -190,6 +184,7 @@ sap.ui.define([
                         MessageBox.success(sSuccessText, {
                             onClose: () => {
                                 if (this.bCreate) {
+                                    this._toggleEdit(false);
                                     oModel.refresh(true);
                                     this.onNavBack();
                                 } else {
@@ -208,13 +203,24 @@ sap.ui.define([
             onCancelPressed: function () {
                 const oModel = this.getView().getModel();
 
-                oModel.resetChanges().then(() => {
-                    if (this.bCreate) {
-                        this.onNavBack();
-                    } else {
-                        this._toggleEdit(false);
-                    }
-                });
+                if (oModel.hasPendingChanges()) {
+                    oModel.resetChanges()
+                }
+
+                this._toggleEdit(false);
+
+                if (this.bCreate) {
+                    this.bCreate = !this.bCreate;
+                    this.onNavBack();
+                }
+            },
+
+            _toggleEdit: function(bEditMode){
+                const oEditModel = this.getView().getModel("editModel");
+
+                oEditModel.setProperty("/editmode", bEditMode);
+
+                this._showCustomerFragment(bEditMode ? "CustomerEdit" : "CustomerDisplay");
             },
 
             genderFormatter: function(sKey) {

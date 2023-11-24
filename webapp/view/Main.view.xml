@@ -50,7 +50,7 @@
                             <Text text="{Firstname}"/>
                             <Text text="{Lastname}"/>
                             <Text text="{Title}"/>
-                            <Text text="{= ${Gender} === '1' ? ${i18n>female} : ${i18n>male} }"/>
+                            <Text text="{path:'Gender', formatter: '.genderFormatter'}"/>
                             <Text text="{path: 'Birthdate', formatter: '.dateFormatter'}"/>
                             <Link text="{Email}" press="handleEmailPress"/>
                             <Link text="{Phone}" press="handleTelPress"/>
@@ -62,3 +62,30 @@
         </s:content>
     </s:SemanticPage>
 </mvc:View>
+<!--
+   
+<mvc:View controllerName="at.clouddna.training00.zhoui5.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:s="sap.f.semantic"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+    <s:SemanticPage id="main_page" showFooter="false">
+        <s:titleHeading>
+            <Title text="{i18n>main.page.title}" />
+        </s:titleHeading>
+        <s:content>
+            <VBox fitContainer="true">
+                <smartFilterBar:SmartFilterBar id="main_smartFilterBar" entitySet="Z_P_CUSTOMER" persistencyKey="SmartFilter_Explored"/>
+                    
+                <smartTable:SmartTable entitySet="Z_P_CUSTOMER" initiallyVisibleFields="Firstname,Lastname,Title,Phone" smartFilterId="main_smartFilterBar"
+                tableType="ResponsiveTable" enableExport="true" useVariantManagement="true" useTablePersonalisation="true" header="{i18n>main.table.title}"
+                showRowCount="true" enableAutoBinding="true" class="sapUiResponsiveContentPadding" enableAutoColumnWidth="true"/>
+                    
+		    </VBox>
+        </s:content>
+    </s:SemanticPage>
+</mvc:View>
+ 
+-->

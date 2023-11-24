@@ -9,7 +9,7 @@ sap.ui.define([],
                 let sText = oResourceBundle.getText(sKey);
                 return sText;
             },
-            
+
             dateFormatter: function(date) {
                 let dateObj = new Date(date);
                 return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();

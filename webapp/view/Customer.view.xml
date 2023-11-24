@@ -11,16 +11,16 @@
         <u:headerTitle>
             <u:ObjectPageDynamicHeaderTitle>
                 <u:expandedHeading>
-					<Title text="{Firstname} {Lastname}"/>
-				</u:expandedHeading>
+                    <Title text="{Firstname} {Lastname}"/>
+                </u:expandedHeading>
 
                 <u:snappedHeading>
-					<FlexBox fitContainer="true" alignItems="Center">
-						<Avatar src="sap-icon://person-placeholder" class="sapUiTinyMarginEnd"/>
-					    <Title text="{Firstname} {Lastname}"/>
-					</FlexBox>
-				</u:snappedHeading>
-    
+                    <FlexBox fitContainer="true" alignItems="Center">
+                        <Avatar src="sap-icon://person-placeholder" class="sapUiTinyMarginEnd"/>
+                        <Title text="{Firstname} {Lastname}"/>
+                    </FlexBox>
+                </u:snappedHeading>
+
                 <u:actions>
                     <HBox >
                         <Button id="cust_edit_button" text="{i18n>cust.edit.button}" type="Emphasized" icon="sap-icon://edit" 
@@ -29,7 +29,7 @@
                             visible="{= !${editModel>/editmode} }" icon="sap-icon://attachment"
                             press=".onOpenAttachments"/>
                     </HBox>
-				</u:actions>
+                </u:actions>
             </u:ObjectPageDynamicHeaderTitle>
         </u:headerTitle>
 
@@ -42,7 +42,7 @@
                     <Title id="cust_header_birthdate" text="{path: 'Birthdate', formatter: '.dateFormatter'}" titleStyle="H6"/>
                 </VBox>
             </FlexBox>
-		</u:headerContent>
+        </u:headerContent>
 
         <u:footer>
             <Toolbar id="cust_toolbar">
